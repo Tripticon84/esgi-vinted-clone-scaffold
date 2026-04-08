@@ -7,13 +7,13 @@
     "dev": "tsx watch src/index.ts"
   },
   "dependencies": {
-    "express": "^5.1.0",
+    "express": "^5.2.1",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "@types/express": "^5.0.2",
+    "@types/express": "^5.0.6",
     "@types/uuid": "^10.0.0",
-    "typescript": "~5.9.0",
-    "tsx": "^4.19.0"
+    "tsx": "^4.21.0",
+    "typescript": "~5.9.3"
   }
 }
