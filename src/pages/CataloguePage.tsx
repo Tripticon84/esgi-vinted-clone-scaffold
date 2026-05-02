@@ -143,7 +143,10 @@ export default function CataloguePage() {
             min="0"
             step="0.01"
             value={priceMin}
-            onChange={(event) => setPriceMin(event.target.value)}
+            onChange={(event) => {
+              const value = event.target.value;
+              setPriceMin(value === "" ? "" : String(Math.max(0, Number(value))));
+            }}
             placeholder="0"
             className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
           />
@@ -156,7 +159,10 @@ export default function CataloguePage() {
             min="0"
             step="0.01"
             value={priceMax}
-            onChange={(event) => setPriceMax(event.target.value)}
+            onChange={(event) => {
+              const value = event.target.value;
+              setPriceMax(value === "" ? "" : String(Math.max(0, Number(value))));
+            }}
             placeholder="100"
             className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
           />
