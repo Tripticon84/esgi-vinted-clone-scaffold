@@ -8,7 +8,18 @@ type ArticleFilters = {
   search: string;
   category: string;
   condition: string;
+  priceMin: string;
+  priceMax: string;
+  sort: SortOption;
 };
+
+type SortOption = "date_desc" | "price_asc" | "price_desc";
+
+const SORT_OPTIONS: { value: SortOption; label: string }[] = [
+  { value: "date_desc", label: "Plus récent" },
+  { value: "price_asc", label: "Prix croissant" },
+  { value: "price_desc", label: "Prix décroissant" },
+];
 
 function buildArticlesPath(filters: ArticleFilters) {
   const params = new URLSearchParams();
@@ -25,6 +36,18 @@ function buildArticlesPath(filters: ArticleFilters) {
     params.set("condition", filters.condition);
   }
 
+  if (filters.priceMin) {
+    params.set("priceMin", filters.priceMin);
+  }
+
+  if (filters.priceMax) {
+    params.set("priceMax", filters.priceMax);
+  }
+
+  if (filters.sort) {
+    params.set("sort", filters.sort);
+  }
+
   const queryString = params.toString();
 
   return queryString ? `/api/articles?${queryString}` : "/api/articles";
@@ -34,11 +57,17 @@ export default function CataloguePage() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [condition, setCondition] = useState("");
+  const [priceMin, setPriceMin] = useState("");
+  const [priceMax, setPriceMax] = useState("");
+  const [sort, setSort] = useState<SortOption>("date_desc");
 
   const filters: ArticleFilters = {
     search: search.trim(),
     category,
     condition,
+    priceMin,
+    priceMax,
+    sort,
   };
 
   const {
@@ -60,7 +89,7 @@ export default function CataloguePage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-6">
         <label className="space-y-1 text-sm font-medium text-gray-700">
           <span>Recherche</span>
           <input
@@ -102,6 +131,53 @@ export default function CataloguePage() {
                 value={availableCondition.value}
               >
                 {availableCondition.label}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="space-y-1 text-sm font-medium text-gray-700">
+          <span>Prix min</span>
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            value={priceMin}
+            onChange={(event) => {
+              const value = event.target.value;
+              setPriceMin(value === "" ? "" : String(Math.max(0, Number(value))));
+            }}
+            placeholder="0"
+            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+          />
+        </label>
+
+        <label className="space-y-1 text-sm font-medium text-gray-700">
+          <span>Prix max</span>
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            value={priceMax}
+            onChange={(event) => {
+              const value = event.target.value;
+              setPriceMax(value === "" ? "" : String(Math.max(0, Number(value))));
+            }}
+            placeholder="100"
+            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+          />
+        </label>
+
+        <label className="space-y-1 text-sm font-medium text-gray-700">
+          <span>Tri</span>
+          <select
+            value={sort}
+            onChange={(event) => setSort(event.target.value as SortOption)}
+            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+          >
+            {SORT_OPTIONS.map((sortOption) => (
+              <option key={sortOption.value} value={sortOption.value}>
+                {sortOption.label}
               </option>
             ))}
           </select>
