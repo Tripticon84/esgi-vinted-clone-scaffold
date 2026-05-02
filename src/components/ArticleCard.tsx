@@ -27,19 +27,19 @@ export default function ArticleCard({ article, actions }: ArticleCardProps) {
     getConditionLabel(article.condition) ?? article.condition;
 
   return (
-    <article className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+    <article className="flex h-full min-w-0 flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
       <Link
         to={`/articles/${article.id}`}
-        className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2"
+        className="flex flex-1 flex-col focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2"
       >
         <img
           src={article.imageUrl}
           alt={article.title}
           loading="lazy"
-          className="aspect-4/3 w-full object-cover"
+          className="block aspect-4/3 w-full max-w-full object-cover"
         />
-        <div className="space-y-3 p-4">
-          <div className="space-y-1">
+        <div className="flex flex-1 flex-col gap-3 p-4">
+          <div className="min-w-0 space-y-1">
             <h2 className="line-clamp-2 text-base font-semibold text-gray-900">
               {article.title}
             </h2>
@@ -57,7 +57,9 @@ export default function ArticleCard({ article, actions }: ArticleCardProps) {
             </span>
           </div>
 
-          <p className="text-sm text-gray-500">Vendu par {article.userName}</p>
+          <p className="mt-auto truncate text-sm text-gray-500">
+            Vendu par {article.userName}
+          </p>
         </div>
       </Link>
 

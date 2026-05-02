@@ -21,6 +21,9 @@ const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: "price_desc", label: "Prix décroissant" },
 ];
 
+const FILTER_FIELD_CLASS =
+  "h-11 w-full min-w-0 rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100";
+
 function buildArticlesPath(filters: ArticleFilters) {
   const params = new URLSearchParams();
 
@@ -89,24 +92,24 @@ export default function CataloguePage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-6">
-        <label className="space-y-1 text-sm font-medium text-gray-700">
+      <div className="grid grid-cols-1 gap-4 rounded-lg border border-gray-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-6">
+        <label className="min-w-0 space-y-1 text-sm font-medium text-gray-700 sm:col-span-2 lg:col-span-2">
           <span>Recherche</span>
           <input
             type="search"
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             placeholder="Rechercher un article"
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+            className={FILTER_FIELD_CLASS}
           />
         </label>
 
-        <label className="space-y-1 text-sm font-medium text-gray-700">
+        <label className="min-w-0 space-y-1 text-sm font-medium text-gray-700 lg:col-span-2">
           <span>Catégorie</span>
           <select
             value={category}
             onChange={(event) => setCategory(event.target.value)}
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+            className={FILTER_FIELD_CLASS}
           >
             <option value="">Toutes les catégories</option>
             {CATEGORIES.map((availableCategory) => (
@@ -117,12 +120,12 @@ export default function CataloguePage() {
           </select>
         </label>
 
-        <label className="space-y-1 text-sm font-medium text-gray-700">
+        <label className="min-w-0 space-y-1 text-sm font-medium text-gray-700 lg:col-span-2">
           <span>État</span>
           <select
             value={condition}
             onChange={(event) => setCondition(event.target.value)}
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+            className={FILTER_FIELD_CLASS}
           >
             <option value="">Tous les états</option>
             {CONDITIONS.map((availableCondition) => (
@@ -136,7 +139,7 @@ export default function CataloguePage() {
           </select>
         </label>
 
-        <label className="space-y-1 text-sm font-medium text-gray-700">
+        <label className="min-w-0 space-y-1 text-sm font-medium text-gray-700 lg:col-span-2">
           <span>Prix min</span>
           <input
             type="number"
@@ -148,11 +151,11 @@ export default function CataloguePage() {
               setPriceMin(value === "" ? "" : String(Math.max(0, Number(value))));
             }}
             placeholder="0"
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+            className={FILTER_FIELD_CLASS}
           />
         </label>
 
-        <label className="space-y-1 text-sm font-medium text-gray-700">
+        <label className="min-w-0 space-y-1 text-sm font-medium text-gray-700 lg:col-span-2">
           <span>Prix max</span>
           <input
             type="number"
@@ -164,16 +167,16 @@ export default function CataloguePage() {
               setPriceMax(value === "" ? "" : String(Math.max(0, Number(value))));
             }}
             placeholder="100"
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+            className={FILTER_FIELD_CLASS}
           />
         </label>
 
-        <label className="space-y-1 text-sm font-medium text-gray-700">
+        <label className="min-w-0 space-y-1 text-sm font-medium text-gray-700 lg:col-span-2">
           <span>Tri</span>
           <select
             value={sort}
             onChange={(event) => setSort(event.target.value as SortOption)}
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+            className={FILTER_FIELD_CLASS}
           >
             {SORT_OPTIONS.map((sortOption) => (
               <option key={sortOption.value} value={sortOption.value}>
@@ -207,7 +210,7 @@ export default function CataloguePage() {
             {articles.length > 1 ? "s" : ""}
           </p>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {articles.map((article) => (
               <ArticleCard key={article.id} article={article} />
             ))}
