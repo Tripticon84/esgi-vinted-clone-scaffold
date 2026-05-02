@@ -35,6 +35,7 @@ export default function ArticleCard({ article, actions }: ArticleCardProps) {
         <img
           src={article.imageUrl}
           alt={article.title}
+          loading="lazy"
           className="aspect-4/3 w-full object-cover"
         />
         <div className="space-y-3 p-4">
