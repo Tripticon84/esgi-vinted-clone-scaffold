@@ -25,6 +25,7 @@ export type Category = {
 export type Condition = {
   value: string;
   label: string;
+  class: string;
 };
 
 export const CATEGORIES: Category[] = [
@@ -37,9 +38,29 @@ export const CATEGORIES: Category[] = [
 ];
 
 export const CONDITIONS: Condition[] = [
-  { value: "neuf_avec_etiquette", label: "Neuf avec étiquette" },
-  { value: "neuf_sans_etiquette", label: "Neuf sans étiquette" },
-  { value: "tres_bon_etat", label: "Très bon état" },
-  { value: "bon_etat", label: "Bon état" },
-  { value: "satisfaisant", label: "Satisfaisant" },
+  {
+    value: "neuf_avec_etiquette",
+    label: "Neuf avec étiquette",
+    class: "text-green-500",
+  },
+  {
+    value: "neuf_sans_etiquette",
+    label: "Neuf sans étiquette",
+    class: "text-blue-500",
+  },
+  {
+    value: "tres_bon_etat",
+    label: "Très bon état",
+    class: "text-yellow-500",
+  },
+  {
+    value: "bon_etat",
+    label: "Bon état",
+    class: "text-orange-500",
+  },
+  {
+    value: "satisfaisant",
+    label: "Satisfaisant",
+    class: "text-red-500",
+  },
 ];
