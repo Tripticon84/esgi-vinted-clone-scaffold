@@ -4,9 +4,12 @@ import { api } from "../services/api";
 import type { Article } from "../types/article";
 import { getConditionClass, getConditionLabel } from "../lib/condition";
 import { getCategoryLabel } from "../lib/category";
+import { useFavoritesQuery } from "../hooks/useFavorites";
+import FavoriteButton from "../components/FavoriteButton";
 
 export default function ArticleDetailPage() {
   const { id } = useParams();
+  const { data: favorites } = useFavoritesQuery();
 
   if (!id) {
     return <h1>Article non trouvé</h1>;
@@ -21,6 +24,8 @@ export default function ArticleDetailPage() {
     queryKey: ["articles", id],
     queryFn: () => api.get<Article>(`/api/articles/${id}`),
   });
+
+  const isFavorite = !!favorites?.find((fav) => fav.id === id);
 
   if (isLoading) {
     return <p>Chargement...</p>;
@@ -44,7 +49,10 @@ export default function ArticleDetailPage() {
       </Link>
 
       <h1 className="text-3xl font-bold mt-4 mb-4">Détail d'un article</h1>
-      <h2 className="text-2xl font-semi-bold mt-4">{article.title}</h2>
+      <h2 className="text-2xl font-semi-bold mt-4 flex items-center justify-between">
+        {article.title}
+        <FavoriteButton articleId={article.id} isFavorite={isFavorite} />
+      </h2>
       <div className="mx-auto mt-4 mb-4">
         <img
           className="w-full h-132 object-cover rounded-lg "
