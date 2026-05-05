@@ -28,8 +28,8 @@ function validateArticleBody(body: Record<string, unknown>): string | null {
   if (typeof size !== "string" || size.trim().length === 0)
     return "La taille est requise";
 
-  if (typeof imageUrl !== "string" || !/^https?:\/\/[^\s/]+/.test(imageUrl))
-    return "L'URL de l'image est invalide";
+  if (typeof imageUrl !== "string" || imageUrl.trim().length === 0)
+    return "L'image est requise";
 
   if (typeof userName !== "string" || userName.trim().length === 0)
     return "Le nom d'utilisateur est requis";
