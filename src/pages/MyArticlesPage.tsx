@@ -42,10 +42,10 @@ export default function MyArticlesPage() {
           </p>
           <div className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {articles.map((article) => (
-              <>
+              <div key={article.id} className="flex flex-col">
                 <ArticleCard key={article.id} article={article} />
                 <DeleteButton articleId={article.id} />
-              </>
+              </div>
             ))}
           </div>
         </>
